@@ -1,0 +1,24 @@
+<template>
+  <div class="me">
+    <h1>This is an about page</h1>
+  </div>
+</template>
+
+<script>
+import AuthService from '@/services/auth-service.js'
+export default {
+  name: 'Me',
+  async mounted() {
+    await this.loadMe()
+  },
+  methods: {
+    async loadMe() {
+      const dataRes = await AuthService.me()
+      console.log(dataRes)
+      if (dataRes.data.code === 200) {
+        console.log(' Show popup login thanh cong')
+      }
+    }
+  }
+}
+</script>

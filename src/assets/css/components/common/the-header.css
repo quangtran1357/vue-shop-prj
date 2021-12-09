@@ -1,0 +1,9 @@
+header .sticky {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.open .dropdown-menu {
+	display: block;
+}
