@@ -13,12 +13,12 @@ const AuthService = {
         localStorage.setItem('vueShopToken', '')
         this.initAuthHeader()
     },
-
     login: async function (user) {
         const res = await axios.post('login', user)
         if (res.data.code === 200) {
             localStorage.setItem('vueShopToken', res.data.data.token.access_token)
-            console.log(this.initAuthHeader())
+            console.log(localStorage.getItem('vueShopToken'))
+            this.initAuthHeader()
             return res.data
         }
     },
@@ -50,8 +50,6 @@ const AuthService = {
             this.resetAuthHeader();
             console.log('not oke')
         }
-        
-        
     },
     logout: async function  () {
         const res = await axios.post('logout')

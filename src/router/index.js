@@ -34,7 +34,10 @@ const routes = [
   {
     path: '/me',
     name: 'Me',
-    component: Me
+    component: Me,
+    meta: {
+      requireAuth: true
+    }
   }
 ]
 
@@ -42,6 +45,21 @@ const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
   routes
+})
+
+router.beforeEach((to, from, next) => {
+  if (to.meta && to.meta.requireAuth) {
+    const auth = localStorage.getItem('vueShopToken')
+    if (auth && auth !== '') {
+      next()
+    } else {
+      next({path: '/login'})
+    }
+  } else {
+    next()
+  }
+  // if (to.name !== 'Login' && !isAuthenticated) next({ name: 'Login' })
+  // else next()
 })
 
 export default router

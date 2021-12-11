@@ -80,6 +80,7 @@ export default {
       console.log(dataLogin)
       if (dataLogin.code === 200) {
         console.log(' Show popup login thanh cong')
+        this.$store.dispatch('actionSetUser', dataLogin.data.token.access_token)
         this.$router.push('/me')
       }
     }

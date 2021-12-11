@@ -50,12 +50,18 @@
                   <a href="#" class="dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
                      aria-expanded="false"><i class="icon-user"></i> </a>
                   <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <li>
-                      <h6>HELLO! Jhon Smith</h6>
-                    </li>
-                    <li><a href="#">MY CART</a></li>
-                    <li><a href="#">ACCOUNT INFO</a></li>
-                    <li><a href="#">LOG OUT</a></li>
+                    <template v-if="user && user !== ''">
+                      <li>
+                        <h6>HELLO! Jhon Smith</h6>
+                      </li>
+                      <li><router-link to="/">MY CART</router-link></li>
+                      <li><router-link to="/me">ACCOUNT INFO</router-link></li>
+                      <li><a @click="logout">LOG OUT</a></li>
+                    </template>
+                    <template v-else>
+                      <li><router-link to="/login">LOGIN</router-link></li>
+                      <li><router-link to="/register">REGISTER</router-link></li>
+                    </template>
                   </ul>
                 </li>
 
@@ -124,11 +130,17 @@
 </template>
 
 <script>
+import AuthService from '@/services/auth-service.js'
 export default {
   name: "TheHeader",
   data() {
     return {
       activeOpenClass: ''
+    }
+  },
+  computed: {
+    user() {
+      return this.$store.state.user;
     }
   },
   methods: {
@@ -138,6 +150,13 @@ export default {
         return;
       }
       this.activeOpenClass = key;
+    },
+    async logout() {
+      const dataLogout = await AuthService.logout()
+      console.log(dataLogout)
+      if (dataLogout.code === 200) {
+        this.$store.dispatch('actionSetUser', null)
+      }
     }
   }
 };

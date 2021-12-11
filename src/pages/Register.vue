@@ -115,8 +115,10 @@ export default {
   },
   methods: {
     async register() {
-      const dataRegister = AuthService.register(this.userForm)
-      console.log(dataRegister)
+      const dataRegister = await AuthService.register(this.userForm)
+      if (dataRegister.code === 200) {
+        this.$router.push('/login')
+      }
     }
   }
 };

@@ -25,6 +25,8 @@ axios.defaults.headers.common['project-name'] = 'admin'
 
 AuthService.initAuthHeader()
 
+store.dispatch('actionSetUser', localStorage.getItem('vueShopToken'))
+
 new Vue({
   router,
   store,
