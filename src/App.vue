@@ -10,8 +10,7 @@
 <script>
 import TheHeader from './components/common/TheHeader.vue'
 export default {
-  components: { TheHeader },
-
+  components: { TheHeader }
 }
 </script>
 
