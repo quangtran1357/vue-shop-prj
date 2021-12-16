@@ -6,16 +6,18 @@
       maximus vehicula. Sed feugiat, tellus vel tristique posuere, diam
     </p>
     <div class="content">
-      <div class="row">
+      <div class="row" v-if="populerProducts.length > 0">
         <div
           class="col-3"
           v-for="(item, index) in populerProducts"
           :key="index"
         >
           <populer-product-item
-            :image="item.image"
-            :name="item.name"
-            :des="item.des"
+            :id="item.id"
+            :slug="item.slug"
+            :image="item.imageUrl"
+            :name="item.title"
+            :des="item.description"
             :amount="item.amount"
           />
         </div>
@@ -27,65 +29,24 @@
 <script>
 import PopulerProductItem from "./PopulerProductItem.vue";
 import STATIC_URL from "@/utils/constant";
+import ProductService from '@/services/product-service.js'
 
 export default {
   components: { PopulerProductItem },
   name: "PopulerProducts",
   data() {
     return {
-      populerProducts: [
-        {
-          image: require("@/assets/images/home/product-1.jpg"),
-          name: "product-1",
-          des: "product-1 description",
-          amount: 233,
-        },
-        {
-          image: require("@/assets/images/home/product-1.jpg"),
-          name: "product-2",
-          des: "product-2 description",
-          amount: 399,
-        },
-        {
-          image: require("@/assets/images/home/product-1.jpg"),
-          name: "product-3",
-          des: "product-3 description",
-          amount: 100,
-        },
-        {
-          image: require("@/assets/images/home/product-1.jpg"),
-          name: "product-4",
-          des: "product-4 description",
-          amount: 400,
-        },
-        {
-          image: require("@/assets/images/home/product-1.jpg"),
-          name: "product-1",
-          des: "product-1 description",
-          amount: 233,
-        },
-        {
-          image: require("@/assets/images/home/product-1.jpg"),
-          name: "product-2",
-          des: "product-2 description",
-          amount: 399,
-        },
-        {
-          image: require("@/assets/images/home/product-1.jpg"),
-          name: "product-3",
-          des: "product-3 description",
-          amount: 100,
-        },
-        {
-          image: require("@/assets/images/home/product-1.jpg"),
-          name: "product-4",
-          des: "product-4 description",
-          amount: 400,
-        },
-      ],
+      populerProducts: [],
       staticUrl: STATIC_URL,
     };
   },
+  async created() {
+    const resProducts = await ProductService.products();
+    console.log(resProducts);
+    if (resProducts.code === 200) {
+      this.populerProducts = resProducts.data;
+    }
+  }
 };
 </script>
 

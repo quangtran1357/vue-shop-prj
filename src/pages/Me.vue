@@ -14,8 +14,7 @@ export default {
   methods: {
     async loadMe() {
       const dataRes = await AuthService.me()
-      console.log(dataRes)
-      if (dataRes && dataRes.data.code === 200) {
+      if (dataRes && dataRes.code === 200) {
         console.log(' Show popup login thanh cong')
       } else {
         this.$router.push('/login')

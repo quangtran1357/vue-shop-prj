@@ -4,6 +4,8 @@ import Home from '../pages/Home.vue'
 import Login from '../pages/Login.vue'
 import Register from '../pages/Register.vue'
 import Me from '../pages/Me.vue'
+import ProductDetail from '../pages/ProductDetail.vue'
+import ProductDetailBySlug from '../pages/ProductDetailBySlug.vue'
 
 Vue.use(VueRouter)
 
@@ -38,6 +40,22 @@ const routes = [
     meta: {
       requireAuth: true
     }
+  },
+  {
+    path: '/product/:id',
+    name: 'ProductDetail',
+    component: ProductDetail,
+    meta: {
+      requireAuth: true
+    }
+  },
+  {
+    path: '/:slug',
+    name: 'ProductDetailBySlug',
+    component: ProductDetailBySlug,
+    meta: {
+      requireAuth: true
+    }
   }
 ]
 
@@ -50,6 +68,7 @@ const router = new VueRouter({
 router.beforeEach((to, from, next) => {
   if (to.meta && to.meta.requireAuth) {
     const auth = localStorage.getItem('vueShopToken')
+    console.log(auth);
     if (auth && auth !== '') {
       next()
     } else {

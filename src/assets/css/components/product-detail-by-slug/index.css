@@ -1,0 +1,12 @@
+.product-detail-by-slug {
+    position: relative;
+}
+.list-image {
+    display: flex;
+    justify-content: center;
+}
+.list-image img {
+    width: 140px;
+    height: 140px;
+    margin: 0 10px;
+}

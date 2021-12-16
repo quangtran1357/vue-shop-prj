@@ -11,8 +11,7 @@ export default new Vuex.Store({
   mutations: {
     setUser(state, token) {
       state.user = token
-    },
-    setUserInfo()
+    }
   },
   actions: {
     actionSetUser({commit}, user) {
