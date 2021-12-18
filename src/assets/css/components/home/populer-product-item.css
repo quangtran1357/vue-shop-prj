@@ -1,0 +1,8 @@
+.populer-product-item {
+    /* padding: 400px; */
+}
+.populer-product-item .item-img {
+    width: 100%;
+    height: 340px;
+    object-fit: cover;
+}

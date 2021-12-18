@@ -41,6 +41,4 @@ export default {
 }
 </script>
 
-<style>
-
-</style>
+<style scoped src="@/assets/css/components/home/populer-product-item.css"></style>

@@ -1,8 +1,15 @@
 import axios from 'axios'
 
 const ProductService = {
-    products: async () => {
-        const res = await axios.get('products')
+    products: async (limit = 10, currentPage = 1, title = null) => {
+
+        const res = await axios.get('products', {
+            params: {
+                limit: limit,
+                page: currentPage,
+                title: title
+            }
+        })
         console.log(res);
         
         if (res.data.code === 200) {

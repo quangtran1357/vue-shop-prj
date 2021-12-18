@@ -6,6 +6,11 @@
       maximus vehicula. Sed feugiat, tellus vel tristique posuere, diam
     </p>
     <div class="content">
+      <div class="search">
+        <input type="text" v-model="searchTitle">
+        <button type="button" @click="getProducts">SEARCH</button>
+      </div>
+      
       <div class="row" v-if="populerProducts.length > 0">
         <div
           class="col-3"
@@ -22,13 +27,21 @@
           />
         </div>
       </div>
+      <b-pagination
+      v-model="currentPage"
+      :total-rows="total"
+      :per-page="limit"
+      first-text="First"
+      prev-text="Prev"
+      next-text="Next"
+      last-text="Last"
+      ></b-pagination>
     </div>
   </div>
 </template>
 
 <script>
 import PopulerProductItem from "./PopulerProductItem.vue";
-import STATIC_URL from "@/utils/constant";
 import ProductService from '@/services/product-service.js'
 
 export default {
@@ -36,16 +49,31 @@ export default {
   name: "PopulerProducts",
   data() {
     return {
+      searchTitle: '',
       populerProducts: [],
-      staticUrl: STATIC_URL,
+      currentPage: 1,
+      total: 0,
+      limit: 2
     };
   },
-  async created() {
-    const resProducts = await ProductService.products();
-    console.log(resProducts);
-    if (resProducts.code === 200) {
-      this.populerProducts = resProducts.data;
+  watch: {
+    async currentPage() {
+      await this.getProducts();
     }
+  },
+  methods: {
+    async getProducts() {
+      const resProducts = await ProductService.products(this.limit, this.currentPage, this.searchTitle);
+      console.log(resProducts);
+      if (resProducts.code === 200) {
+        this.populerProducts = resProducts.data;
+        this.currentPage = resProducts.meta.current_page
+        this.total = resProducts.meta.total
+      }
+    }
+  },
+  async created() {
+    await this.getProducts();
   }
 };
 </script>
