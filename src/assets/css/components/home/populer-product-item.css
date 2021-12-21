@@ -6,3 +6,10 @@
     height: 340px;
     object-fit: cover;
 }
+.populer-product-item__button {
+    color: #FFFFFF !important;
+}
+.populer-product-item__button:hover {
+    color: #ab4e52 !important;
+    border: 1px solid #ab4e52;
+}

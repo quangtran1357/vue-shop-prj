@@ -1,15 +1,17 @@
 <template>
-    <router-link :to="`/${slug}`">
-        <div class="populer-product-item item-name mb-4">
-            <img class="item-img" :src="image">
-            <a class="populer-product-item__name">{{name}}</a>
-            <p class="populer-product-item__des">{{des}}</p>
-            <p class="populer-product-item__amount price">${{amount}}</p>
-        </div>
-    </router-link>
+    <div class="populer-product-item item-name mb-4">
+        <router-link :to="`/${slug}`">
+        <img class="item-img" :src="image">
+        <a class="populer-product-item__name">{{name}}</a>
+        <p class="populer-product-item__des">{{des}}</p>
+        <p class="populer-product-item__amount price">${{amount}}</p>
+        </router-link>
+        <a @click="actionAddItem({id, image, name, amount})" class="btn populer-product-item__button">Add Cart</a>
+    </div>
 </template>
 
 <script>
+import {mapActions} from 'vuex'
 export default {
     name: 'PopulerProductItem',
     props: {
@@ -37,6 +39,11 @@ export default {
             type: Number,
             default: 0
         }
+    },
+    methods: {
+        ...mapActions('cart', [
+            'actionAddItem'
+        ])
     }
 }
 </script>

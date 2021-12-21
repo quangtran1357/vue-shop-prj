@@ -64,10 +64,9 @@ export default {
   methods: {
     async getProducts() {
       const resProducts = await ProductService.products(this.limit, this.currentPage, this.searchTitle);
-      console.log(resProducts);
       if (resProducts.code === 200) {
         this.populerProducts = resProducts.data;
-        this.currentPage = resProducts.meta.current_page
+        // this.currentPage = resProducts.meta.current_page
         this.total = resProducts.meta.total
       }
     }

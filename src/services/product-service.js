@@ -10,7 +10,6 @@ const ProductService = {
                 title: title
             }
         })
-        console.log(res);
         
         if (res.data.code === 200) {
             return res.data
@@ -18,7 +17,6 @@ const ProductService = {
     },
     productDetail: async (id) => {
         const res = await axios.get(`products/${id}`)
-        console.log(res);
         
         if (res.data.code === 200) {
             return res.data
@@ -26,14 +24,12 @@ const ProductService = {
     },
     productDetailBySlug: async (slug) => {
         const res = await axios.get(`/product/${slug}`)
-        console.log(res);
         if (res.data.code === 200) {
             return res.data
         }
     },
     addProduct: async (data) => {
         const res = await axios.post(`/products`, data)
-        console.log(res);
         if (res.data.code === 200) {
             return res.data
         }

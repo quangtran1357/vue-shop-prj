@@ -8,9 +8,6 @@
 </template>
 
 <script>
-import test from '@/assets/js/test.js'
-
-console.log(test.foo())
 import TheHeader from './components/common/TheHeader.vue'
 export default {
   components: { TheHeader }
